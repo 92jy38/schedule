@@ -26,6 +26,7 @@ repositories {
 dependencies {
 	// MySQL
 	implementation 'mysql:mysql-connector-java:8.0.28'
+//	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:3.3.0'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
