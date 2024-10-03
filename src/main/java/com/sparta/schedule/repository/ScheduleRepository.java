@@ -15,21 +15,21 @@ public class ScheduleRepository {
 
     // 일정 생성
     public int save(Schedule schedule) {
-        String sql = "INSERT INTO schedule (contents, name, password, created_date, update) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO schedule (contents, name, password, created_date, updated_date) VALUES (?, ?, ?, ?, ?)";
         return jdbcTemplate.update(sql, schedule.getContents(), schedule.getName(), schedule.getPassword(),
-                schedule.getCreatedDate(), schedule.getUpdate());
+                schedule.getCreatedDate(), schedule.getUpdatedDate());
     }
 
     // 전체 일정 조회
     public List<Schedule> findAll() {
-        String sql = "SELECT * FROM schedule ORDER BY update DESC";
+        String sql = "SELECT * FROM schedule ORDER BY updated_date DESC";
         return jdbcTemplate.query(sql, (rs, rowNum) -> new Schedule(
                 rs.getLong("id"),
                 rs.getString("contents"),
                 rs.getString("name"),
                 rs.getString("password"),
                 rs.getTimestamp("created_date").toLocalDateTime(),
-                rs.getTimestamp("update").toLocalDateTime()
+                rs.getTimestamp("updated_date").toLocalDateTime()
         ));
     }
 
@@ -42,15 +42,15 @@ public class ScheduleRepository {
                 rs.getString("name"),
                 rs.getString("password"),
                 rs.getTimestamp("created_date").toLocalDateTime(),
-                rs.getTimestamp("update").toLocalDateTime()
+                rs.getTimestamp("updated_date").toLocalDateTime()
         ));
     }
 
     // 일정 수정
     public int update(Schedule schedule) {
-        String sql = "UPDATE schedule SET contents = ?, name = ?, update = ? WHERE id = ?";
+        String sql = "UPDATE schedule SET contents = ?, name = ?, updated_date = ? WHERE id = ?";
         return jdbcTemplate.update(sql, schedule.getContents(), schedule.getName(),
-                schedule.getUpdate(), schedule.getId());
+                schedule.getUpdatedDate(), schedule.getId());
     }
 
     // 일정 삭제
