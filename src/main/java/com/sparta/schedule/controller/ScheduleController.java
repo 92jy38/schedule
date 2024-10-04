@@ -25,7 +25,7 @@ public class ScheduleController {
 
     // 전체 일정 조회
     @GetMapping("")
-    public List<ScheduleResponseDto> getAllSchedules(@RequestParam("date")String schedule) {
+    public List<ScheduleResponseDto> getAllSchedules() {
         return scheduleService.getAllSchedules();
     }
 
