@@ -29,11 +29,31 @@ public class ScheduleService {
         return new ScheduleResponseDto(schedule.getId(), schedule.getContents(), schedule.getName(), schedule.getCreatedDate(), schedule.getUpdatedDate());
     }
 
-    // 전체 일정 조회
-    public List<ScheduleResponseDto> getAllSchedules() {
-        List<Schedule> schedules = scheduleRepository.findAll();
+    // 필터 조건에 따른 전체 일정 조회
+    public List<ScheduleResponseDto> getAllSchedules(String name, String updatedDate) {
+        List<Schedule> schedules;
+
+        if (name != null && updatedDate != null) {
+            // 1. 수정일 + 작성자명으로 조회
+            schedules = scheduleRepository.findByUpdatedDateAndName(updatedDate, name);
+        } else if (updatedDate != null) {
+            // 2. 수정일로만 조회
+            schedules = scheduleRepository.findByUpdatedDate(updatedDate);
+        } else if (name != null) {
+            // 3. 작성자명으로만 조회
+            schedules = scheduleRepository.findByName(name);
+        } else {
+            // 4. 조건 없이 전체 조회
+            schedules = scheduleRepository.findAll();
+        }
+
         return schedules.stream()
-                .map(schedule -> new ScheduleResponseDto(schedule.getId(), schedule.getContents(), schedule.getName(), schedule.getCreatedDate(), schedule.getUpdatedDate()))
+                .map(schedule -> new ScheduleResponseDto(
+                        schedule.getId(),
+                        schedule.getContents(),
+                        schedule.getName(),
+                        schedule.getCreatedDate(),
+                        schedule.getUpdatedDate()))
                 .collect(Collectors.toList());
     }
 

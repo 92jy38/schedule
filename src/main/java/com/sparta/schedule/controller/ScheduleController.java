@@ -23,10 +23,12 @@ public class ScheduleController {
         return scheduleService.createSchedule(dto);
     }
 
-    // 전체 일정 조회
+    // 전체 일정 조회 (필터 조건에 따라)
     @GetMapping("")
-    public List<ScheduleResponseDto> getAllSchedules() {
-        return scheduleService.getAllSchedules();
+    public List<ScheduleResponseDto> getAllSchedules(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String updatedDate) {
+        return scheduleService.getAllSchedules(name, updatedDate);
     }
 
     // 일정 ID로 조회
