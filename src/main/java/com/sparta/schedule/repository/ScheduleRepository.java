@@ -25,25 +25,24 @@ public class ScheduleRepository {
 
     // 작성자명과 수정일로 조회
     public List<Schedule> findByUpdatedDateAndName(String updatedDate, String name) {
-        String sql = "SELECT * FROM schedule WHERE updated_date = ? AND name = ?";
+        String sql = "SELECT * FROM schedule WHERE updated_date = ? AND name = ? ORDER BY updated_date DESC"; // 내림차순 정렬 추가
         return jdbcTemplate.query(sql, new Object[]{updatedDate, name}, (rs, rowNum) -> mapSchedule(rs));
     }
 
-    // 수정일로만 조회
     public List<Schedule> findByUpdatedDate(String updatedDate) {
-        String sql = "SELECT * FROM schedule WHERE updated_date = ?";
+        String sql = "SELECT * FROM schedule WHERE updated_date = ? ORDER BY updated_date DESC"; // 내림차순 정렬 추가
         return jdbcTemplate.query(sql, new Object[]{updatedDate}, (rs, rowNum) -> mapSchedule(rs));
     }
 
     // 작성자명으로만 조회
     public List<Schedule> findByName(String name) {
-        String sql = "SELECT * FROM schedule WHERE name = ?";
+        String sql = "SELECT * FROM schedule WHERE name = ? ORDER BY updated_date DESC"; // 내림차순 정렬 추가
         return jdbcTemplate.query(sql, new Object[]{name}, (rs, rowNum) -> mapSchedule(rs));
     }
 
     // 전체 조회
     public List<Schedule> findAll() {
-        String sql = "SELECT * FROM schedule";
+        String sql = "SELECT * FROM schedule ORDER BY updated_date DESC"; // 수정일 기준 내림차순 정렬 추가
         return jdbcTemplate.query(sql, (rs, rowNum) -> mapSchedule(rs));
     }
 
