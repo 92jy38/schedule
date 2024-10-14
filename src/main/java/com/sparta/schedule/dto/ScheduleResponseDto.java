@@ -20,17 +20,4 @@ public class ScheduleResponseDto {
     private LocalDateTime createdDate; // 작성일
     private LocalDateTime updatedDate;      // 수정일
 }
-    // 기본 생성자
-    // @NoArgsConstructor 처리
-//    public ScheduleResponseDto() {}
-
-    // 모든 필드를 포함하는 생성자
-    // @AllArgsConstructor 처리
-//    public ScheduleResponseDto(Long id, String contents, String name, LocalDateTime createdDate, LocalDateTime update) {
-//        this.id = id;
-//        this.contents = contents;
-//        this.name = name;
-//        this.createdDate = createdDate;
-//        this.updatedDate = updatedDate;
-//
 
